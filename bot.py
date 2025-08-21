@@ -1,37 +1,23 @@
-import os
-import sys
-import random
 import tweepy
-from dotenv import load_dotenv
+import os
 
-# .env 불러오기
-load_dotenv()
+# 환경변수에서 키 불러오기
+api_key = os.environ["API_KEY"]
+api_secret = os.environ["API_SECRET"]
+access_token = os.environ["ACCESS_TOKEN"]
+access_secret = os.environ["ACCESS_SECRET"]
 
-API_KEY = os.getenv("API_KEY")
-API_KEY_SECRET = os.getenv("API_SECRET")
-ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
-ACCESS_TOKEN_SECRET = os.getenv("ACCESS_SECRET")
-
-# 트위터 인증
-auth = tweepy.OAuth1UserHandler(
-    API_KEY,
-    API_KEY_SECRET,
-    ACCESS_TOKEN,
-    ACCESS_TOKEN_SECRET
+# v2 Client 설정
+client = tweepy.Client(
+    consumer_key=api_key,
+    consumer_secret=api_secret,
+    access_token=access_token,
+    access_token_secret=access_secret
 )
-api = tweepy.API(auth)
 
-# 대사 불러오기
-with open("lines.txt", "r", encoding="utf-8") as f:
-    lines = [line.strip() for line in f if line.strip()]
-
-# 랜덤으로 한 줄 선택
-tweet_text = random.choice(lines)
-
-# 트윗 발행
+# 트윗 작성
 try:
-    tweet = api.update_status(tweet_text)
-    print(f"✅ 트윗 성공! ID: {tweet.id} / 내용: {tweet_text}")
+    response = client.create_tweet(text="Hello from Twitter API v2 🐦")
+    print("Tweet successful:", response)
 except Exception as e:
-    print("[오류] 트윗 실패:", e)
-
+    print("Error:", e)
