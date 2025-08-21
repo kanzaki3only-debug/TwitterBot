@@ -2,8 +2,8 @@ name: Twitter Bot
 
 on:
   schedule:
-    - cron: '*/5 * * * *'   # 매 시간 정각마다 실행
-  workflow_dispatch:       # 원하면 수동 실행도 가능하게 추가
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
 
 jobs:
   run-bot:
