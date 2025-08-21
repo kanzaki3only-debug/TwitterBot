@@ -2,25 +2,31 @@ name: Twitter Bot
 
 on:
   schedule:
-    # 매 시간마다 실행 (cron: 분 시 * * *). 아래는 1시간마다 0분에 실행
-    - cron: "0 * * * *"
-  workflow_dispatch: # 수동 실행도 가능
-  
+    - cron: '0 * * * *'   # 매 시간 정각마다 실행
+  workflow_dispatch:       # 원하면 수동 실행도 가능하게 추가
+
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Run bot
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
-          API_SECRET: ${{ secrets.API_SECRET }}
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          ACCESS_SECRET: ${{ secrets.ACCESS_SECRET }}
-        run: python bot.py
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run bot.py
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
+        API_SECRET: ${{ secrets.API_SECRET }}
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        ACCESS_SECRET: ${{ secrets.ACCESS_SECRET }}
+      run: python bot.py
