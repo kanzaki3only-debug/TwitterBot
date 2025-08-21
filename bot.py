@@ -8,9 +8,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
-API_KEY_SECRET = os.getenv("API_KEY_SECRET")
+API_KEY_SECRET = os.getenv("API_SECRET")
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
-ACCESS_TOKEN_SECRET = os.getenv("ACCESS_TOKEN_SECRET")
+ACCESS_TOKEN_SECRET = os.getenv("ACCESS_SECRET")
 
 # 트위터 인증
 auth = tweepy.OAuth1UserHandler(
@@ -34,3 +34,4 @@ try:
     print(f"✅ 트윗 성공! ID: {tweet.id} / 내용: {tweet_text}")
 except Exception as e:
     print("[오류] 트윗 실패:", e)
+
