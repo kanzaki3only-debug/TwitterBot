@@ -7,7 +7,7 @@ api_secret = os.environ["API_SECRET"]
 access_token = os.environ["ACCESS_TOKEN"]
 access_secret = os.environ["ACCESS_SECRET"]
 
-# v2 Client 설정
+# Tweepy Client (Twitter API v2)
 client = tweepy.Client(
     consumer_key=api_key,
     consumer_secret=api_secret,
@@ -18,6 +18,6 @@ client = tweepy.Client(
 # 트윗 작성
 try:
     response = client.create_tweet(text="Hello from Twitter API v2 🐦")
-    print("Tweet successful:", response)
+    print("✅ Tweet successful:", response)
 except Exception as e:
-    print("Error:", e)
+    print("❌ Error:", e)
