@@ -10,6 +10,7 @@ access_secret = os.environ["ACCESS_SECRET"]
 
 # Tweepy Client (Twitter API v2)
 client = tweepy.Client(
+    bearer_token=os.environ.get("BEARER_TOKEN"),
     consumer_key=api_key,
     consumer_secret=api_secret,
     access_token=access_token,
